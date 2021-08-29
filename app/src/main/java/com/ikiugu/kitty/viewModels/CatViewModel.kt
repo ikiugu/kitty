@@ -50,7 +50,7 @@ class CatViewModel @Inject constructor(private val catsRepository: CatsRepositor
     }
 
     fun getImagesByCategories(categoryId: String) {
-        Timber.i("Searching by category")
+        Timber.i("Searching all images by category")
         viewModelScope.launch {
             val res = catsRepository.getImagesByCategory(categoryId)
             Timber.i(res[0].url)
@@ -58,11 +58,19 @@ class CatViewModel @Inject constructor(private val catsRepository: CatsRepositor
     }
 
     fun saveFavoriteImage() {
-        Timber.i("Searching by category")
+        Timber.i("Saving favorite images")
         viewModelScope.launch {
-            val requestBody = SaveFavoriteRequestBody("qIbc94meU", "ikiugu-123456789")
+            val requestBody = SaveFavoriteRequestBody("d19", "ikiugu-123456789")
             val res = catsRepository.saveFavoriteImage(requestBody)
             Timber.i(res.message)
+        }
+    }
+
+    fun getFavoriteImages() {
+        Timber.i("Getting all favorite images")
+        viewModelScope.launch {
+            val res = catsRepository.getFavoriteImages()
+            Timber.i(res.size.toString())
         }
     }
 }

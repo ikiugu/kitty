@@ -4,6 +4,7 @@ import com.ikiugu.kitty.models.Breed
 import com.ikiugu.kitty.models.Categories
 import com.ikiugu.kitty.models.SearchByCategory
 import com.ikiugu.kitty.models.SimpleCatResponse
+import com.ikiugu.kitty.models.favorites.Favorites
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.models.favorites.SaveFavoriteResponse
 
@@ -18,4 +19,5 @@ interface CatsRepository {
     suspend fun getCategories(): Categories
     suspend fun getImagesByCategory(categoryId: String): SearchByCategory
     suspend fun saveFavoriteImage(saveFavoriteRequestBody: SaveFavoriteRequestBody): SaveFavoriteResponse
+    suspend fun getFavoriteImages(): Favorites
 }

@@ -17,3 +17,19 @@ data class SaveFavoriteResponse (
     val id: Long,
     val message: String
 )
+
+typealias Favorites = ArrayList<FavoriteItem>
+
+data class FavoriteItem (
+    val createdAt: String,
+    val id: Long,
+    val image: Image,
+    val imageID: String,
+    val subID: String,
+    val userID: String
+)
+
+data class Image (
+    val id: String,
+    val url: String
+)

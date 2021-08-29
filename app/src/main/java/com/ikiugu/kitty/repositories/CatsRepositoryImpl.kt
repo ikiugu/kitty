@@ -5,6 +5,7 @@ import com.ikiugu.kitty.models.Breed
 import com.ikiugu.kitty.models.Categories
 import com.ikiugu.kitty.models.SearchByCategory
 import com.ikiugu.kitty.models.SimpleCatResponse
+import com.ikiugu.kitty.models.favorites.Favorites
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.models.favorites.SaveFavoriteResponse
 import com.ikiugu.kitty.network.CatApiService
@@ -38,6 +39,10 @@ class CatsRepositoryImpl @Inject constructor(private val catApiService: CatApiSe
 
     override suspend fun saveFavoriteImage(saveFavoriteRequestBody: SaveFavoriteRequestBody): SaveFavoriteResponse {
         return catApiService.saveImageAsFavorite(saveFavoriteRequestBody, Constants.API_KEY)
+    }
+
+    override suspend fun getFavoriteImages(): Favorites {
+        return catApiService.getFavorites(Constants.API_KEY)
     }
 
 }
