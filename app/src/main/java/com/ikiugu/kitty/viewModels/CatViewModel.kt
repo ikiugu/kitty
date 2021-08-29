@@ -47,4 +47,12 @@ class CatViewModel @Inject constructor(private val catsRepository: CatsRepositor
             Timber.i(res[0].name)
         }
     }
+
+    fun getImagesByCategories(categoryId: String) {
+        Timber.i("Searching by category")
+        viewModelScope.launch {
+            val res = catsRepository.getImagesByCategory(categoryId)
+            Timber.i(res[0].url)
+        }
+    }
 }

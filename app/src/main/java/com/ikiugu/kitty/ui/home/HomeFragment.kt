@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        catViewModel.getCategories()
+        catViewModel.getImagesByCategories("1")
 
         val root: View = binding.root
 
