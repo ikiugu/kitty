@@ -1,6 +1,7 @@
 package com.ikiugu.kitty.network
 
 import com.ikiugu.kitty.models.Breed
+import com.ikiugu.kitty.models.Categories
 import com.ikiugu.kitty.models.SimpleCatResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -18,4 +19,7 @@ interface CatApiService {
 
     @GET("images/search")
     suspend fun getBreedById(@Query("breed_ids") breedId: String): SimpleCatResponse
+
+    @GET("categories")
+    suspend fun getCategories() : Categories
 }

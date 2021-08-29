@@ -2,7 +2,7 @@ package com.ikiugu.kitty.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikiugu.kitty.network.CatApiService
+import com.ikiugu.kitty.repositories.CatsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -13,13 +13,13 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class CatViewModel @Inject constructor(private val catApiService: CatApiService) :
+class CatViewModel @Inject constructor(private val catsRepository: CatsRepository) :
     ViewModel() {
 
     fun getRandomKitties() {
         Timber.i("Getting random cats")
         viewModelScope.launch {
-            val res = catApiService.getRandomCat()
+            val res = catsRepository.getRandomCat()
             Timber.i(res[0].url)
         }
     }
@@ -27,7 +27,7 @@ class CatViewModel @Inject constructor(private val catApiService: CatApiService)
     fun getCatBreeds() {
         Timber.i("Getting cat breeds")
         viewModelScope.launch {
-            val res = catApiService.getBreeds()
+            val res = catsRepository.getCatBreeds()
             Timber.i(res[0].name)
         }
     }
@@ -35,8 +35,16 @@ class CatViewModel @Inject constructor(private val catApiService: CatApiService)
     fun getCatBreedsById(breedId: String) {
         Timber.i("Getting cat breeds by id")
         viewModelScope.launch {
-            val res = catApiService.getBreedById(breedId)
+            val res = catsRepository.getCatBreedsById(breedId)
             Timber.i(res[0].breeds[0].name)
+        }
+    }
+
+    fun getCategories() {
+        Timber.i("Getting all search categories")
+        viewModelScope.launch {
+            val res = catsRepository.getCategories()
+            Timber.i(res[0].name)
         }
     }
 }

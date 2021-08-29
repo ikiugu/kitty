@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val viewModel by viewModels<CatViewModel>()
+    private val catViewModel by viewModels<CatViewModel>()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -29,11 +29,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        viewModel.getRandomKitties()
-
-        viewModel.getCatBreeds()
-
-        viewModel.getCatBreedsById("beng")
+        catViewModel.getCategories()
 
         val root: View = binding.root
 

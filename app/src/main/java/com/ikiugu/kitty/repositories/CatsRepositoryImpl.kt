@@ -1,14 +1,16 @@
 package com.ikiugu.kitty.repositories
 
 import com.ikiugu.kitty.models.Breed
+import com.ikiugu.kitty.models.Categories
 import com.ikiugu.kitty.models.SimpleCatResponse
 import com.ikiugu.kitty.network.CatApiService
+import javax.inject.Inject
 
 /**
  * Created by Alfred Ikiugu on 29/08/2021
  */
 
-class CatsRepositoryImpl(private val catApiService: CatApiService) : CatsRepository {
+class CatsRepositoryImpl @Inject constructor(private val catApiService: CatApiService) : CatsRepository {
     override suspend fun getRandomCat(): SimpleCatResponse {
         return catApiService.getRandomCat()
     }
@@ -18,7 +20,11 @@ class CatsRepositoryImpl(private val catApiService: CatApiService) : CatsReposit
     }
 
     override suspend fun getCatBreedsById(breedId: String): SimpleCatResponse {
-        TODO("Not yet implemented")
+        return catApiService.getBreedById(breedId)
+    }
+
+    override suspend fun getCategories(): Categories {
+        return catApiService.getCategories()
     }
 
 }

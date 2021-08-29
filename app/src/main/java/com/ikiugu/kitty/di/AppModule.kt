@@ -2,6 +2,8 @@ package com.ikiugu.kitty.di
 
 import com.google.gson.GsonBuilder
 import com.ikiugu.kitty.network.CatApiService
+import com.ikiugu.kitty.repositories.CatsRepository
+import com.ikiugu.kitty.repositories.CatsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,5 +29,11 @@ class AppModule {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(CatApiService::class.java)
+
+    // provide the cat repository to be injected in the view model(s)
+    @Provides
+    @Singleton
+    fun provideCatsRepository(catApiService: CatApiService): CatsRepository =
+        CatsRepositoryImpl(catApiService)
 
 }
