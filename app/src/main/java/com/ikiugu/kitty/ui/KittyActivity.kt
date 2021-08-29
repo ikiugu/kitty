@@ -15,7 +15,7 @@ import com.ikiugu.kitty.R
 import com.ikiugu.kitty.databinding.ActivityMainBinding
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class KittyActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
