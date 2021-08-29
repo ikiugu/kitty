@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        catViewModel.getImagesByCategories("1")
+        catViewModel.saveFavoriteImage()
 
         val root: View = binding.root
 

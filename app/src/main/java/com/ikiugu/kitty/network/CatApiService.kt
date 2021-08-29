@@ -4,8 +4,9 @@ import com.ikiugu.kitty.models.Breed
 import com.ikiugu.kitty.models.Categories
 import com.ikiugu.kitty.models.SearchByCategory
 import com.ikiugu.kitty.models.SimpleCatResponse
-import retrofit2.http.GET
-import retrofit2.http.Query
+import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
+import com.ikiugu.kitty.models.favorites.SaveFavoriteResponse
+import retrofit2.http.*
 
 /**
  * Created by Alfred Ikiugu on 29/08/2021
@@ -26,4 +27,10 @@ interface CatApiService {
 
     @GET("images/search")
     suspend fun searchImagesByCategory(@Query("category_ids") categoryId: String): SearchByCategory
+
+    @POST("favourites")
+    suspend fun saveImageAsFavorite(
+        @Body favoriteRequestBody: SaveFavoriteRequestBody,
+        @Header("x-api-key") apiKey: String
+    ): SaveFavoriteResponse
 }

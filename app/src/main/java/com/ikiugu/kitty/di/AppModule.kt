@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-    // 'provide' the cat api service to the entire app
+    // provide the cat api service to the entire app
     @Provides
     @Singleton
     fun provideCatApiService(): CatApiService =

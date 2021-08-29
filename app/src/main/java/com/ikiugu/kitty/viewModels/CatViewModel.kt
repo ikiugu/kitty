@@ -2,6 +2,7 @@ package com.ikiugu.kitty.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -53,6 +54,15 @@ class CatViewModel @Inject constructor(private val catsRepository: CatsRepositor
         viewModelScope.launch {
             val res = catsRepository.getImagesByCategory(categoryId)
             Timber.i(res[0].url)
+        }
+    }
+
+    fun saveFavoriteImage() {
+        Timber.i("Searching by category")
+        viewModelScope.launch {
+            val requestBody = SaveFavoriteRequestBody("qIbc94meU", "ikiugu-123456789")
+            val res = catsRepository.saveFavoriteImage(requestBody)
+            Timber.i(res.message)
         }
     }
 }

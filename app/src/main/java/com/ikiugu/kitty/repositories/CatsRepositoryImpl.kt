@@ -1,9 +1,12 @@
 package com.ikiugu.kitty.repositories
 
+import com.ikiugu.kitty.helpers.Constants
 import com.ikiugu.kitty.models.Breed
 import com.ikiugu.kitty.models.Categories
 import com.ikiugu.kitty.models.SearchByCategory
 import com.ikiugu.kitty.models.SimpleCatResponse
+import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
+import com.ikiugu.kitty.models.favorites.SaveFavoriteResponse
 import com.ikiugu.kitty.network.CatApiService
 import javax.inject.Inject
 
@@ -31,6 +34,10 @@ class CatsRepositoryImpl @Inject constructor(private val catApiService: CatApiSe
 
     override suspend fun getImagesByCategory(categoryId: String): SearchByCategory {
         return catApiService.searchImagesByCategory(categoryId)
+    }
+
+    override suspend fun saveFavoriteImage(saveFavoriteRequestBody: SaveFavoriteRequestBody): SaveFavoriteResponse {
+        return catApiService.saveImageAsFavorite(saveFavoriteRequestBody, Constants.API_KEY)
     }
 
 }
