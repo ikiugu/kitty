@@ -7,7 +7,7 @@ package com.ikiugu.kitty.models
 typealias SimpleCatResponse = ArrayList<SimpleCat>
 
 data class SimpleCat (
-    val breeds: List<Any?>,
+    val breeds: List<CatBreed>,
     val id: String,
     val url: String,
     val width: Long,

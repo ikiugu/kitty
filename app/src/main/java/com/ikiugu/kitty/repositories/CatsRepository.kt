@@ -1,5 +1,6 @@
 package com.ikiugu.kitty.repositories
 
+import com.ikiugu.kitty.models.Breed
 import com.ikiugu.kitty.models.SimpleCatResponse
 
 /**
@@ -8,4 +9,6 @@ import com.ikiugu.kitty.models.SimpleCatResponse
 
 interface CatsRepository {
     suspend fun getRandomCat(): SimpleCatResponse
+    suspend fun getCatBreeds(): Breed
+    suspend fun getCatBreedsById(breedId: String): SimpleCatResponse
 }

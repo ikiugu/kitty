@@ -23,4 +23,20 @@ class CatViewModel @Inject constructor(private val catApiService: CatApiService)
             Timber.i(res[0].url)
         }
     }
+
+    fun getCatBreeds() {
+        Timber.i("Getting cat breeds")
+        viewModelScope.launch {
+            val res = catApiService.getBreeds()
+            Timber.i(res[0].name)
+        }
+    }
+
+    fun getCatBreedsById(breedId: String) {
+        Timber.i("Getting cat breeds by id")
+        viewModelScope.launch {
+            val res = catApiService.getBreedById(breedId)
+            Timber.i(res[0].breeds[0].name)
+        }
+    }
 }

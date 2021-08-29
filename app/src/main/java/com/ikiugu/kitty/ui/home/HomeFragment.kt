@@ -31,6 +31,10 @@ class HomeFragment : Fragment() {
 
         viewModel.getRandomKitties()
 
+        viewModel.getCatBreeds()
+
+        viewModel.getCatBreedsById("beng")
+
         val root: View = binding.root
 
         return root
