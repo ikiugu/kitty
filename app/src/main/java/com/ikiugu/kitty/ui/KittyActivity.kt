@@ -15,6 +15,11 @@ import com.ikiugu.kitty.databinding.ActivityKittyBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+/**
+ * Created by Alfred Ikiugu on 29/08/2021
+ */
+
+
 @AndroidEntryPoint
 class KittyActivity : AppCompatActivity() {
 
