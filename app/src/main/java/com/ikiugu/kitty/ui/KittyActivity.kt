@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -16,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.ikiugu.kitty.R
 import com.ikiugu.kitty.databinding.ActivityKittyBinding
+import com.ikiugu.kitty.viewModels.CatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -29,6 +31,7 @@ class KittyActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityKittyBinding
+    private val catViewModel by viewModels<CatViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +60,8 @@ class KittyActivity : AppCompatActivity() {
         val navigationView : NavigationView  = findViewById(R.id.nav_view)
         val headerView : View = navigationView.getHeaderView(0)
         val navUsername : TextView = headerView.findViewById(R.id.nav_header_username)
-        navUsername.text = generateRandomNumber()
+        navUsername.text = catViewModel.userProfileName.value
 
-    }
-
-    private fun generateRandomNumber() :String {
-        var mainName = getString(R.string.default_username)
-        mainName += ((Math.random() * (999999 - 100000)).toInt() + 100000).toString()
-        return mainName
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

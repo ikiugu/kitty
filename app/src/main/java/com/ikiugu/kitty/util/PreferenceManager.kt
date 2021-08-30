@@ -28,6 +28,7 @@ class PreferenceManager @Inject constructor(@ApplicationContext private val cont
 
     private object PreferenceKeys {
         val IMAGE_TYPE_SELECTED = stringPreferencesKey("IMAGE_TYPE_SELECTED")
+        val USER_NAME_SELECTED = stringPreferencesKey("USERNAME_SELECTED")
     }
 
     val imageTypeFlow = context.dataStore.data
@@ -43,9 +44,28 @@ class PreferenceManager @Inject constructor(@ApplicationContext private val cont
             preferences[PreferenceKeys.IMAGE_TYPE_SELECTED] ?: ImageTypes.PNG.name
         }
 
+    val usernameFlow = context.dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                Timber.e(exception, "Error reading shared preferences")
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
+            preferences[PreferenceKeys.USER_NAME_SELECTED] ?: "ikiugu"
+        }
+
     suspend fun updateImageTypePreferences(imageTypes: ImageTypes) {
         context.dataStore.edit { preferences ->
             preferences[PreferenceKeys.IMAGE_TYPE_SELECTED] = imageTypes.name
+        }
+    }
+
+    suspend fun updateUsernamePreference(username: String) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferenceKeys.USER_NAME_SELECTED] = username
         }
     }
 }

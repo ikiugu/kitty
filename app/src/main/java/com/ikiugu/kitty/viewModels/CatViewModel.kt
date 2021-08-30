@@ -1,14 +1,17 @@
 package com.ikiugu.kitty.viewModels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ikiugu.kitty.R
 import com.ikiugu.kitty.models.SimpleCat
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
 import com.ikiugu.kitty.util.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -21,12 +24,15 @@ import javax.inject.Inject
 @HiltViewModel
 class CatViewModel @Inject constructor(
     private val catsRepository: CatsRepository,
-    preferenceManager: PreferenceManager
+    preferenceManager: PreferenceManager,
+    @ApplicationContext private val context: Context
 ) :
     ViewModel() {
 
     private lateinit var userImageType: String
+    private lateinit var userName: String
     private val userImageTypeFlow = preferenceManager.imageTypeFlow
+    private val usernameSelected = preferenceManager.usernameFlow
 
     private var _cat = MutableLiveData<SimpleCat>()
     val cat: LiveData<SimpleCat>
@@ -35,6 +41,10 @@ class CatViewModel @Inject constructor(
     private var _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
         get() = _loading
+
+    private var _userProfileName = MutableLiveData<String>()
+    val userProfileName: LiveData<String>
+        get() = _userProfileName
 
     fun setLoading(loading: Boolean) {
         _loading.value = true
@@ -47,7 +57,18 @@ class CatViewModel @Inject constructor(
                 userImageType = imageType
                 getRandomKitties()
             }
+            usernameSelected.collect { username ->
+                userName = username
+            }
         }
+
+        setUserName()
+    }
+
+    private fun setUserName(): String {
+        var mainName = context.getString(R.string.default_username)
+        mainName += ((java.lang.Math.random() * (999999 - 100000)).toInt() + 100000).toString()
+        return mainName
     }
 
     fun getRandomKitties() {

@@ -14,4 +14,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/image_type_preference">
+
+        <EditTextPreference
+            app:dialogTitle="Username"
+            app:key="username"
+            app:title="Preferred Username"
+            app:useSimpleSummaryProvider="true" />
+
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

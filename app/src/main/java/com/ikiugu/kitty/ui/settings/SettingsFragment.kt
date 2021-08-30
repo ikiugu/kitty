@@ -3,6 +3,7 @@ package com.ikiugu.kitty.ui.settings
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.ikiugu.kitty.R
@@ -23,12 +24,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         settingsViewModel = ViewModelProvider(requireActivity()).get(SettingsViewModel::class.java)
 
-        val preference = findPreference<ListPreference>("userImageType")
-        preference?.setOnPreferenceChangeListener { pref, newValue ->
+        val listPreference = findPreference<ListPreference>("userImageType")
+        listPreference?.setOnPreferenceChangeListener { pref, newValue ->
             val stringValue = newValue.toString()
 
             if (pref is ListPreference) { // not needed because the listener is attached to the listPreference
-                settingsViewModel?.saveNewPreference(stringValue)
+                settingsViewModel?.saveNewListPreference(stringValue)
+            }
+
+            true
+        }
+
+        val usernamePreference = findPreference<EditTextPreference>("username")
+        usernamePreference?.setOnPreferenceChangeListener { pref, newValue ->
+            val stringValue = newValue.toString()
+
+            if (pref is EditTextPreference) { // not needed because the listener is attached to the listPreference
+                settingsViewModel?.saveUsernamePreference(stringValue)
             }
 
             true
