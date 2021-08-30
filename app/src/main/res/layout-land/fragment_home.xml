@@ -10,35 +10,27 @@
             type="com.ikiugu.kitty.viewModels.CatViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment">
-
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageHolder"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:imageUrl="@{viewModel.cat.url}"
-            app:layout_constraintDimensionRatio="h,3:3.5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:onClick="@{() -> viewModel.getRandomKitties()}"
-            android:text="Refresh"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageHolder" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Refresh" />
+    </LinearLayout>
 </layout>
