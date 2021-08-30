@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -51,6 +53,18 @@ class KittyActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         Timber.i("Kitty Activity running")
+
+        val navigationView : NavigationView  = findViewById(R.id.nav_view)
+        val headerView : View = navigationView.getHeaderView(0)
+        val navUsername : TextView = headerView.findViewById(R.id.nav_header_username)
+        navUsername.text = generateRandomNumber()
+
+    }
+
+    private fun generateRandomNumber() :String {
+        var mainName = getString(R.string.default_username)
+        mainName += ((Math.random() * (999999 - 100000)).toInt() + 100000).toString()
+        return mainName
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
