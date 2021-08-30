@@ -4,7 +4,11 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.ikiugu.kitty.R
+
+
+
 
 
 /**
@@ -18,12 +22,13 @@ import com.ikiugu.kitty.R
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
     if (url != null) {
+        val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
         Glide
             .with(imageView.context)
             .load(url)
             .placeholder(R.drawable.ic_home)
             .error(R.drawable.side_nav_bar)
-            .transition(withCrossFade())
+            .transition(withCrossFade(factory))
             .into(imageView)
 
     }
