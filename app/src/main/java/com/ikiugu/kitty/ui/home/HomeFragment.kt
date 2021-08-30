@@ -36,6 +36,22 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = catViewModel
 
+       /* catViewModel.loading.observe(viewLifecycleOwner, { loading ->
+            if (loading) {
+                binding.lavLoader?.playAnimation()
+                binding.lavLoader?.visibility = View.VISIBLE
+                binding.catImageView?.visibility = View.GONE
+            } else {
+                binding.catImageView?.visibility = View.VISIBLE
+                binding.lavLoader?.visibility = View.GONE
+            }
+        })*/
+
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        catViewModel.setLoading(true)
     }
 }

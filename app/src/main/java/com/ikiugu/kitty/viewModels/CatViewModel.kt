@@ -32,6 +32,14 @@ class CatViewModel @Inject constructor(
     val cat: LiveData<SimpleCat>
         get() = _cat
 
+    private var _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
+    fun setLoading(loading: Boolean) {
+        _loading.value = true
+    }
+
     init {
         Timber.i("Cat view model initialized")
         viewModelScope.launch {
@@ -44,10 +52,12 @@ class CatViewModel @Inject constructor(
 
     fun getRandomKitties() {
         Timber.i("Getting random cats")
+        _loading.value = true
         viewModelScope.launch {
             val res = catsRepository.getRandomCat(userImageType)
             Timber.i(res[0].url)
             _cat.value = res[0]
+            _loading.value = false
         }
     }
 
