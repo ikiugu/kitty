@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 /**
@@ -25,7 +24,6 @@ enum class ImageTypes { GIF, PNG, JPG }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("settings")
 
-@Singleton
 class PreferenceManager @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object PreferenceKeys {
@@ -42,7 +40,7 @@ class PreferenceManager @Inject constructor(@ApplicationContext private val cont
             }
         }
         .map { preferences ->
-            preferences[PreferenceKeys.IMAGE_TYPE_SELECTED] ?: ImageTypes.GIF.name
+            preferences[PreferenceKeys.IMAGE_TYPE_SELECTED] ?: ImageTypes.PNG.name
         }
 
     suspend fun updateImageTypePreferences(imageTypes: ImageTypes) {
