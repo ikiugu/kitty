@@ -1,7 +1,10 @@
 package com.ikiugu.kitty.viewModels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ikiugu.kitty.models.SimpleCat
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +20,21 @@ import javax.inject.Inject
 class CatViewModel @Inject constructor(private val catsRepository: CatsRepository) :
     ViewModel() {
 
+    private var _cat = MutableLiveData<SimpleCat>()
+    val cat: LiveData<SimpleCat>
+        get() = _cat
+
+    init {
+        Timber.i("Cat view model initialized")
+        getRandomKitties()
+    }
+
     fun getRandomKitties() {
         Timber.i("Getting random cats")
         viewModelScope.launch {
             val res = catsRepository.getRandomCat()
             Timber.i(res[0].url)
+            _cat.value = res[0]
         }
     }
 
