@@ -27,7 +27,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preference?.setOnPreferenceChangeListener { pref, newValue ->
             val stringValue = newValue.toString()
 
-            if (pref is ListPreference) {
+            if (pref is ListPreference) { // not needed because the listener is attached to the listPreference
                 settingsViewModel?.saveNewPreference(stringValue)
             }
 
