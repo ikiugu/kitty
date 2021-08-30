@@ -41,7 +41,10 @@ class KittyActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home
+                R.id.nav_home,
+                R.id.nav_breeds,
+                R.id.nav_categories,
+                R.id.nav_favourites
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

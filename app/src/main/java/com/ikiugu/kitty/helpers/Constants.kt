@@ -5,5 +5,5 @@ package com.ikiugu.kitty.helpers
  */
 
 object Constants {
-    const val API_KEY = ""
+    const val API_KEY = "71c7bbbb-4d8c-445a-b794-f9e4ecb23b4a"
 }
