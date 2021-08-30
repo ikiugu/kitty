@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 30
 
     defaultConfig {
         applicationId "com.ikiugu.kitty"
@@ -71,7 +71,4 @@ dependencies {
 
     // Logging
     implementation "com.jakewharton.timber:timber:$timberVersion"
-
-    // Splash screen api for android 12 +
-    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
 }
