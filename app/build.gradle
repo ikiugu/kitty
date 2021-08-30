@@ -75,4 +75,7 @@ dependencies {
 
     // Glide for images
     implementation "com.github.bumptech.glide:glide:$gildeVersion"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 }

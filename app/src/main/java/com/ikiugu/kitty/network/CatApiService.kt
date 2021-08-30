@@ -15,7 +15,7 @@ import retrofit2.http.*
 
 interface CatApiService {
     @GET("images/search")
-    suspend fun getRandomCat(): SimpleCatResponse
+    suspend fun getRandomCat(@Query("mime_types") mimeType: String): SimpleCatResponse
 
     @GET("breeds")
     suspend fun getBreeds(): Breed

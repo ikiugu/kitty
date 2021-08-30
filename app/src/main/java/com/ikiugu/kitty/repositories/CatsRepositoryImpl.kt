@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 class CatsRepositoryImpl @Inject constructor(private val catApiService: CatApiService) :
     CatsRepository {
-    override suspend fun getRandomCat(): SimpleCatResponse {
-        return catApiService.getRandomCat()
+    override suspend fun getRandomCat(mimeType: String): SimpleCatResponse {
+        return catApiService.getRandomCat(mimeType)
     }
 
     override suspend fun getCatBreeds(): Breed {

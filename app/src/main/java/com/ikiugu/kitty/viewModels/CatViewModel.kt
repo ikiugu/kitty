@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.ikiugu.kitty.models.SimpleCat
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
+import com.ikiugu.kitty.util.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,8 +19,14 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class CatViewModel @Inject constructor(private val catsRepository: CatsRepository) :
+class CatViewModel @Inject constructor(
+    private val catsRepository: CatsRepository,
+    preferenceManager: PreferenceManager
+) :
     ViewModel() {
+
+    private lateinit var userImageType: String
+    private val userImageTypeFlow = preferenceManager.imageTypeFlow
 
     private var _cat = MutableLiveData<SimpleCat>()
     val cat: LiveData<SimpleCat>
@@ -26,13 +34,18 @@ class CatViewModel @Inject constructor(private val catsRepository: CatsRepositor
 
     init {
         Timber.i("Cat view model initialized")
-        getRandomKitties()
+        viewModelScope.launch {
+            userImageTypeFlow.collect { imageType ->
+                userImageType = imageType
+                getRandomKitties()
+            }
+        }
     }
 
     fun getRandomKitties() {
         Timber.i("Getting random cats")
         viewModelScope.launch {
-            val res = catsRepository.getRandomCat()
+            val res = catsRepository.getRandomCat(userImageType)
             Timber.i(res[0].url)
             _cat.value = res[0]
         }

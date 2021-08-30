@@ -13,7 +13,7 @@ import com.ikiugu.kitty.models.favorites.SaveFavoriteResponse
  */
 
 interface CatsRepository {
-    suspend fun getRandomCat(): SimpleCatResponse
+    suspend fun getRandomCat(mimeType: String): SimpleCatResponse
     suspend fun getCatBreeds(): Breed
     suspend fun getCatBreedsById(breedId: String): SimpleCatResponse
     suspend fun getCategories(): Categories
