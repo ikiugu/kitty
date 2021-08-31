@@ -57,11 +57,14 @@ class KittyActivity : AppCompatActivity() {
 
         Timber.i("Kitty Activity running")
 
-        val navigationView : NavigationView  = findViewById(R.id.nav_view)
-        val headerView : View = navigationView.getHeaderView(0)
-        val navUsername : TextView = headerView.findViewById(R.id.nav_header_username)
-        navUsername.text = catViewModel.userProfileName.value
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        val headerView: View = navigationView.getHeaderView(0)
+        val navUsername: TextView = headerView.findViewById(R.id.nav_header_username)
 
+        // set the username from the preference manager
+        catViewModel.userProfileName.observe(this, { userName ->
+            navUsername.text = userName
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

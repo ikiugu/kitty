@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikiugu.kitty.R
 import com.ikiugu.kitty.models.SimpleCat
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
@@ -30,7 +29,6 @@ class CatViewModel @Inject constructor(
     ViewModel() {
 
     private lateinit var userImageType: String
-    private lateinit var userName: String
     private val userImageTypeFlow = preferenceManager.imageTypeFlow
     private val usernameSelected = preferenceManager.usernameFlow
 
@@ -47,28 +45,25 @@ class CatViewModel @Inject constructor(
         get() = _userProfileName
 
     fun setLoading(loading: Boolean) {
-        _loading.value = true
+        _loading.value = loading
     }
 
     init {
         Timber.i("Cat view model initialized")
         viewModelScope.launch {
             userImageTypeFlow.collect { imageType ->
+                Timber.i("Image type selected is $imageType")
                 userImageType = imageType
                 getRandomKitties()
             }
-            usernameSelected.collect { username ->
-                userName = username
-            }
         }
 
-        setUserName()
-    }
-
-    private fun setUserName(): String {
-        var mainName = context.getString(R.string.default_username)
-        mainName += ((java.lang.Math.random() * (999999 - 100000)).toInt() + 100000).toString()
-        return mainName
+        viewModelScope.launch {
+            usernameSelected.collect { username ->
+                Timber.i("Username selected is $username")
+                _userProfileName.value = username
+            }
+        }
     }
 
     fun getRandomKitties() {

@@ -14,12 +14,13 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/image_type_preference">
+    <PreferenceCategory app:title="@string/username_preference">
 
         <EditTextPreference
+            app:defaultValue="ikiugu"
             app:dialogTitle="Username"
             app:key="username"
-            app:title="Preferred Username"
+            app:title="@string/preferred_username"
             app:useSimpleSummaryProvider="true" />
 
 

@@ -39,7 +39,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         usernamePreference?.setOnPreferenceChangeListener { pref, newValue ->
             val stringValue = newValue.toString()
 
-            if (pref is EditTextPreference) { // not needed because the listener is attached to the listPreference
+            if (pref is EditTextPreference) { // not needed because the listener is attached to the EditTextPreference
                 settingsViewModel?.saveUsernamePreference(stringValue)
             }
 

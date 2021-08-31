@@ -16,5 +16,7 @@
     <string name="select_preferred_image_type">Select preferred image type</string>
     <string name="choose_search_image_type">Choose search image type</string>
     <string name="default_username">ikiugu</string>
+    <string name="username_preference">Username Preference</string>
+    <string name="preferred_username">Preferred Username</string>
 
 </resources>
