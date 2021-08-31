@@ -41,8 +41,8 @@ class CatsRepositoryImpl @Inject constructor(private val catApiService: CatApiSe
         return catApiService.saveImageAsFavorite(saveFavoriteRequestBody, Constants.API_KEY)
     }
 
-    override suspend fun getFavoriteImages(): Favorites {
-        return catApiService.getFavorites(Constants.API_KEY)
+    override suspend fun getFavoriteImages(subId: String): Favorites {
+        return catApiService.getFavorites(Constants.API_KEY, subId)
     }
 
 }

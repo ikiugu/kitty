@@ -19,5 +19,5 @@ interface CatsRepository {
     suspend fun getCategories(): Categories
     suspend fun getImagesByCategory(categoryId: String): SearchByCategory
     suspend fun saveFavoriteImage(saveFavoriteRequestBody: SaveFavoriteRequestBody): SaveFavoriteResponse
-    suspend fun getFavoriteImages(): Favorites
+    suspend fun getFavoriteImages(subId: String): Favorites
 }

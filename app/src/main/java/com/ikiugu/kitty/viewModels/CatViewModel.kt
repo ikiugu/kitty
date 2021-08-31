@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ikiugu.kitty.models.SimpleCat
+import com.ikiugu.kitty.models.favorites.FavoriteItem
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
 import com.ikiugu.kitty.util.PreferenceManager
@@ -35,6 +36,10 @@ class CatViewModel @Inject constructor(
     private var _cat = MutableLiveData<SimpleCat>()
     val cat: LiveData<SimpleCat>
         get() = _cat
+
+    private var _favoriteImages = MutableLiveData<ArrayList<FavoriteItem>>()
+    val favoriteImages: LiveData<ArrayList<FavoriteItem>>
+        get() = _favoriteImages
 
     private var _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
@@ -112,7 +117,7 @@ class CatViewModel @Inject constructor(
     fun saveFavoriteImage() {
         Timber.i("Saving favorite images")
         viewModelScope.launch {
-            val requestBody = SaveFavoriteRequestBody("d19", "ikiugu-123456789")
+            val requestBody = SaveFavoriteRequestBody("MTg4Mjk1Ng", "ikiugu-123456789")
             val res = catsRepository.saveFavoriteImage(requestBody)
             Timber.i(res.message)
         }
@@ -121,8 +126,9 @@ class CatViewModel @Inject constructor(
     fun getFavoriteImages() {
         Timber.i("Getting all favorite images")
         viewModelScope.launch {
-            val res = catsRepository.getFavoriteImages()
+            val res = catsRepository.getFavoriteImages(userProfileName.value.toString())
             Timber.i(res.size.toString())
+            _favoriteImages.value = res
         }
     }
 }

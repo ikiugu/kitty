@@ -36,5 +36,8 @@ interface CatApiService {
     ): SaveFavoriteResponse
 
     @GET("favourites")
-    suspend fun getFavorites(@Header("x-api-key") apiKey: String): Favorites
+    suspend fun getFavorites(
+        @Header("x-api-key") apiKey: String,
+        @Query("sub_id") subId: String
+    ): Favorites
 }
