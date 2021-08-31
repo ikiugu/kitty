@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ikiugu.kitty.models.CatBreed
 import com.ikiugu.kitty.models.Category
 import com.ikiugu.kitty.models.CategoryResult
 import com.ikiugu.kitty.models.SimpleCat
@@ -52,6 +53,10 @@ class CatViewModel @Inject constructor(
     private var _favoriteImages = MutableLiveData<ArrayList<FavoriteItem>>()
     val favoriteImages: LiveData<ArrayList<FavoriteItem>>
         get() = _favoriteImages
+
+    private var _catBreeds = MutableLiveData<ArrayList<CatBreed>>()
+    val catBreeds: LiveData<ArrayList<CatBreed>>
+        get() = _catBreeds
 
     private var _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
@@ -101,7 +106,8 @@ class CatViewModel @Inject constructor(
         Timber.i("Getting cat breeds")
         viewModelScope.launch {
             val res = catsRepository.getCatBreeds()
-            Timber.i(res[0].name)
+            Timber.i("Fetched ${res.size} cat breeds")
+            _catBreeds.value = res
         }
     }
 
