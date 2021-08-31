@@ -18,5 +18,7 @@
     <string name="default_username">ikiugu</string>
     <string name="username_preference">Username Preference</string>
     <string name="preferred_username">Preferred Username</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

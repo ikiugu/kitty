@@ -17,7 +17,7 @@ interface CatsRepository {
     suspend fun getCatBreeds(): Breed
     suspend fun getCatBreedsById(breedId: String): SimpleCatResponse
     suspend fun getCategories(): Categories
-    suspend fun getImagesByCategory(categoryId: String): SearchByCategory
+    suspend fun getImagesByCategory(categoryId: String, limit: String): SearchByCategory
     suspend fun saveFavoriteImage(saveFavoriteRequestBody: SaveFavoriteRequestBody): SaveFavoriteResponse
     suspend fun getFavoriteImages(subId: String): Favorites
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ikiugu.kitty.databinding.FavouritesItemBinding
 import com.ikiugu.kitty.models.favorites.FavoriteItem
 
@@ -35,6 +36,7 @@ class FavoritesAdapter :
                 if (favorite.image.url.isNotEmpty()) {
                     Glide.with(favoritesImageView)
                         .load(favorite.image.url)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                         .centerCrop()
                         .into(favoritesImageView)
                 }

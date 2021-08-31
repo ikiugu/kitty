@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ikiugu.kitty.models.Category
+import com.ikiugu.kitty.models.CategoryResult
 import com.ikiugu.kitty.models.SimpleCat
 import com.ikiugu.kitty.models.favorites.FavoriteItem
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
@@ -13,7 +14,9 @@ import com.ikiugu.kitty.repositories.CatsRepository
 import com.ikiugu.kitty.util.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -42,6 +45,10 @@ class CatViewModel @Inject constructor(
     val categories: LiveData<ArrayList<Category>>
         get() = _categories
 
+    private var _categoriesSearchResult = MutableLiveData<ArrayList<CategoryResult>>()
+    val categorySearchResult: LiveData<ArrayList<CategoryResult>>
+        get() = _categoriesSearchResult
+
     private var _favoriteImages = MutableLiveData<ArrayList<FavoriteItem>>()
     val favoriteImages: LiveData<ArrayList<FavoriteItem>>
         get() = _favoriteImages
@@ -57,6 +64,9 @@ class CatViewModel @Inject constructor(
     fun setLoading(loading: Boolean) {
         _loading.value = loading
     }
+
+    private val catsEventChannel = Channel<CatsEvent>()
+    val catsEvent = catsEventChannel.receiveAsFlow()
 
     init {
         Timber.i("Cat view model initialized")
@@ -112,11 +122,20 @@ class CatViewModel @Inject constructor(
         }
     }
 
+    private fun displaySearchResultsByCategory(images: Array<CategoryResult>) =
+        viewModelScope.launch {
+            catsEventChannel.send(CatsEvent.NavigateToDisplayCatsScreen(images))
+        }
+
     fun getImagesByCategories(categoryId: String) {
         Timber.i("Searching all images by category")
+
         viewModelScope.launch {
-            val res = catsRepository.getImagesByCategory(categoryId)
-            Timber.i(res[0].url)
+            val res = catsRepository.getImagesByCategory(categoryId, "50")
+            Timber.i("Fetched ${res.size} images using categories")
+            _categoriesSearchResult.value = res
+
+            displaySearchResultsByCategory(res.toTypedArray())
         }
     }
 
@@ -135,6 +154,26 @@ class CatViewModel @Inject constructor(
             val res = catsRepository.getFavoriteImages(userProfileName.value.toString())
             Timber.i("Fetched ${res.size} favorite images")
             _favoriteImages.value = res
+        }
+    }
+
+
+    sealed class CatsEvent {
+        data class NavigateToDisplayCatsScreen(val images: Array<CategoryResult>) : CatsEvent() {
+            override fun equals(other: Any?): Boolean {
+                if (this === other) return true
+                if (javaClass != other?.javaClass) return false
+
+                other as NavigateToDisplayCatsScreen
+
+                if (!images.contentEquals(other.images)) return false
+
+                return true
+            }
+
+            override fun hashCode(): Int {
+                return images.contentHashCode()
+            }
         }
     }
 }

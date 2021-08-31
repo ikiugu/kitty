@@ -6,11 +6,3 @@ package com.ikiugu.kitty.models
 
 typealias SearchByCategory = ArrayList<CategoryResult>
 
-data class CategoryResult (
-    val breeds: List<CatBreed>,
-    val categories: List<Category>,
-    val id: String,
-    val url: String,
-    val width: Long,
-    val height: Long
-)
