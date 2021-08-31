@@ -14,7 +14,7 @@ import com.ikiugu.kitty.models.CategoryResult
  * Created by Alfred Ikiugu on 30/08/2021
  */
 
-class ImagesAdapter :
+class ImagesAdapter(private val listener: OnItemClickListener) :
     ListAdapter<CategoryResult, ImagesAdapter.ImagesViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesViewHolder {
@@ -31,6 +31,18 @@ class ImagesAdapter :
     inner class ImagesViewHolder(private val binding: ImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.apply {
+                favoriteButton.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val category = getItem(position)
+                        listener.onItemClick(category)
+                    }
+                }
+            }
+        }
+
         fun bind(image: CategoryResult) {
             binding.apply {
                 if (image.url.isNotEmpty()) {
@@ -42,6 +54,10 @@ class ImagesAdapter :
                 }
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(category: CategoryResult)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<CategoryResult>() {

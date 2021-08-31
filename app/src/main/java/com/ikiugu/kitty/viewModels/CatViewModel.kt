@@ -127,6 +127,11 @@ class CatViewModel @Inject constructor(
             catsEventChannel.send(CatsEvent.NavigateToDisplayCatsScreen(images))
         }
 
+    private fun favoriteImageAdded() =
+        viewModelScope.launch {
+            catsEventChannel.send(CatsEvent.FavoriteImageAdded)
+        }
+
     fun getImagesByCategories(categoryId: String) {
         Timber.i("Searching all images by category")
 
@@ -139,12 +144,15 @@ class CatViewModel @Inject constructor(
         }
     }
 
-    fun saveFavoriteImage() {
+    fun saveFavoriteImage(id: String) {
         Timber.i("Saving favorite images")
         viewModelScope.launch {
-            val requestBody = SaveFavoriteRequestBody("MTg4Mjk1Ng", "ikiugu-123456789")
+            //ikiugu-123456789 test id
+            val requestBody = SaveFavoriteRequestBody(id, userProfileName.value.toString())
             val res = catsRepository.saveFavoriteImage(requestBody)
             Timber.i(res.message)
+
+            favoriteImageAdded()
         }
     }
 
@@ -175,5 +183,7 @@ class CatViewModel @Inject constructor(
                 return images.contentHashCode()
             }
         }
+
+        object FavoriteImageAdded : CatsEvent()
     }
 }
