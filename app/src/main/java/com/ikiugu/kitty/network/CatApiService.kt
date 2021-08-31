@@ -29,7 +29,8 @@ interface CatApiService {
     @GET("images/search")
     suspend fun searchImagesByCategory(
         @Query("category_ids") categoryId: String,
-        @Query("limit") limit: String
+        @Query("limit") limit: String,
+        @Query("mime_types") mimeType: String
     ): SearchByCategory
 
     @POST("favourites")

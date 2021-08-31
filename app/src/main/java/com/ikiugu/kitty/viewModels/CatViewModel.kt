@@ -136,7 +136,7 @@ class CatViewModel @Inject constructor(
         Timber.i("Searching all images by category")
 
         viewModelScope.launch {
-            val res = catsRepository.getImagesByCategory(categoryId, "50")
+            val res = catsRepository.getImagesByCategory(categoryId, "50", userImageType)
             Timber.i("Fetched ${res.size} images using categories")
             _categoriesSearchResult.value = res
 

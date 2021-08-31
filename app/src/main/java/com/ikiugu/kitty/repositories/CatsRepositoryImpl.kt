@@ -33,8 +33,8 @@ class CatsRepositoryImpl @Inject constructor(private val catApiService: CatApiSe
         return catApiService.getCategories()
     }
 
-    override suspend fun getImagesByCategory(categoryId: String, limit: String): SearchByCategory {
-        return catApiService.searchImagesByCategory(categoryId, limit)
+    override suspend fun getImagesByCategory(categoryId: String, limit: String, mimeType: String): SearchByCategory {
+        return catApiService.searchImagesByCategory(categoryId, limit, mimeType)
     }
 
     override suspend fun saveFavoriteImage(saveFavoriteRequestBody: SaveFavoriteRequestBody): SaveFavoriteResponse {
