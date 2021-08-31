@@ -1,6 +1,6 @@
 # Kittie App
 
-## This is a simple app that uses Kotlin and the Jetpack library 
+### This is a simple app that uses Kotlin and the Jetpack library 
 Libaries used are
 - Hilt
 - Retrofit
