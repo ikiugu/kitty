@@ -1,6 +1,5 @@
 package com.ikiugu.kitty.viewModels
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
 import com.ikiugu.kitty.util.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -26,8 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CatViewModel @Inject constructor(
     private val catsRepository: CatsRepository,
-    preferenceManager: PreferenceManager,
-    @ApplicationContext private val context: Context
+    preferenceManager: PreferenceManager
 ) :
     ViewModel() {
 
