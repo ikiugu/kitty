@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.ikiugu.kitty.R
 import com.ikiugu.kitty.databinding.BreedListingItemBinding
 import com.ikiugu.kitty.models.CatBreed
 
@@ -36,8 +37,8 @@ class BreedListingAdapter(private val listener: OnItemClickListener) :
                 root.setOnClickListener {
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        val category = getItem(position)
-                        listener.onItemClick(category)
+                        val breed = getItem(position)
+                        listener.onItemClick(breed)
                     }
                 }
             }
@@ -51,6 +52,7 @@ class BreedListingAdapter(private val listener: OnItemClickListener) :
                     Glide.with(breedImage)
                         .load(category.image.url)
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .error(R.drawable.ic_error)
                         .centerCrop()
                         .into(breedImage)
                 }

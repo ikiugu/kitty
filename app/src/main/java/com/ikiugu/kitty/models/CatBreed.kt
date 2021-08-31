@@ -1,10 +1,14 @@
 package com.ikiugu.kitty.models
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
 /**
  * Created by Alfred Ikiugu on 29/08/2021
  */
 
-data class CatBreed (
+data class CatBreed(
     val weight: Weight,
     val id: String,
     val name: String,
@@ -39,20 +43,34 @@ data class CatBreed (
     val rex: Long,
     val suppressedTail: Long,
     val shortLegs: Long,
+    @SerializedName("wikipedia_url")
     val wikipediaURL: String,
     val hypoallergenic: Long,
     val referenceImageID: String,
-    val image: Image
+    val image: Image?
 )
 
-data class Image (
+@Parcelize
+data class SimpleCatBreed(
+    val id: String,
+    val name: String,
+    val temperament: String,
+    val origin: String,
+    val description: String,
+    val wikipediaURL: String?,
+    val imageUrl: String?
+) : Parcelable {
+
+}
+
+data class Image(
     val id: String,
     val width: Long,
     val height: Long,
     val url: String
 )
 
-data class Weight (
+data class Weight(
     val imperial: String,
     val metric: String
 )

@@ -29,8 +29,8 @@ fun setImageUrl(imageView: ImageView, url: String?) {
         Glide
             .with(imageView.context)
             .load(url)
-            .placeholder(R.drawable.ic_home)
-            .error(R.drawable.side_nav_bar)
+            .placeholder(R.drawable.ic_placeholder)
+            .error(R.drawable.ic_error)
             .transition(withCrossFade(factory))
             .into(imageView)
 

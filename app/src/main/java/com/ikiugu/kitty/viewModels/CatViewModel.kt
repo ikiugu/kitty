@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikiugu.kitty.models.CatBreed
-import com.ikiugu.kitty.models.Category
-import com.ikiugu.kitty.models.CategoryResult
-import com.ikiugu.kitty.models.SimpleCat
+import com.ikiugu.kitty.models.*
 import com.ikiugu.kitty.models.favorites.FavoriteItem
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
 import com.ikiugu.kitty.repositories.CatsRepository
@@ -111,6 +108,23 @@ class CatViewModel @Inject constructor(
         }
     }
 
+    fun setCatBreed(catBreed: CatBreed) {
+        val cat = SimpleCatBreed(
+            id = catBreed.id,
+            name = catBreed.name,
+            temperament = catBreed.temperament,
+            origin = catBreed.origin,
+            description = catBreed.description,
+            wikipediaURL = catBreed.wikipediaURL,
+            imageUrl = catBreed.image?.url
+        )
+
+        viewModelScope.launch {
+            catsEventChannel.send(CatsEvent.NavigateToDisplayBreedsScreen(cat))
+        }
+    }
+
+
     fun getCatBreedsById(breedId: String) {
         Timber.i("Getting cat breeds by id")
         viewModelScope.launch {
@@ -173,7 +187,8 @@ class CatViewModel @Inject constructor(
 
 
     sealed class CatsEvent {
-        data class NavigateToDisplayCatsScreen(val images: Array<CategoryResult>) : CatsEvent() {
+        data class NavigateToDisplayCatsScreen(val images: Array<CategoryResult>) :
+            CatsEvent() {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (javaClass != other?.javaClass) return false
@@ -189,6 +204,8 @@ class CatViewModel @Inject constructor(
                 return images.contentHashCode()
             }
         }
+
+        data class NavigateToDisplayBreedsScreen(val breed: SimpleCatBreed) : CatsEvent()
 
         object FavoriteImageAdded : CatsEvent()
     }

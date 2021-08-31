@@ -14,12 +14,16 @@
         android:id="@+id/nav_breeds"
         android:name="com.ikiugu.kitty.ui.breeds.list.BreedsFragment"
         android:label="@string/menu_breeds"
-        tools:layout="@layout/fragment_breeds" />
+        tools:layout="@layout/fragment_breeds">
+        <action
+            android:id="@+id/action_nav_breeds_to_nav_breed_display"
+            app:destination="@id/nav_breed_display" />
+    </fragment>
     <fragment
         android:id="@+id/nav_categories"
         android:name="com.ikiugu.kitty.ui.categories.search.CategoriesFragment"
         android:label="@string/menu_categories"
-        tools:layout="@layout/fragment_categories" >
+        tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/action_nav_categories_to_nav_categories_result"
             app:destination="@id/nav_categories_result" />
@@ -33,10 +37,19 @@
         android:id="@+id/nav_categories_result"
         android:name="com.ikiugu.kitty.ui.categories.display.DisplayCategoryImagesFragment"
         android:label="@string/cats"
-        tools:layout="@layout/fragment_display_category_images" >
+        tools:layout="@layout/fragment_display_category_images">
         <argument
             android:name="categoryResults"
             app:argType="com.ikiugu.kitty.models.CategoryResult[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_breed_display"
+        android:name="com.ikiugu.kitty.ui.breeds.display.BreedDisplayFragment"
+        android:label=""
+        tools:layout="@layout/fragment_breed_display">
+        <argument
+            android:name="catBreed"
+            app:argType="com.ikiugu.kitty.models.SimpleCatBreed" />
     </fragment>
 
 </navigation>
