@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ikiugu.kitty.models.Category
 import com.ikiugu.kitty.models.SimpleCat
 import com.ikiugu.kitty.models.favorites.FavoriteItem
 import com.ikiugu.kitty.models.favorites.SaveFavoriteRequestBody
@@ -36,6 +37,10 @@ class CatViewModel @Inject constructor(
     private var _cat = MutableLiveData<SimpleCat>()
     val cat: LiveData<SimpleCat>
         get() = _cat
+
+    private var _categories = MutableLiveData<ArrayList<Category>>()
+    val categories: LiveData<ArrayList<Category>>
+        get() = _categories
 
     private var _favoriteImages = MutableLiveData<ArrayList<FavoriteItem>>()
     val favoriteImages: LiveData<ArrayList<FavoriteItem>>
@@ -102,7 +107,8 @@ class CatViewModel @Inject constructor(
         Timber.i("Getting all search categories")
         viewModelScope.launch {
             val res = catsRepository.getCategories()
-            Timber.i(res[0].name)
+            Timber.i("Fetched ${res.size} categories")
+            _categories.value = res
         }
     }
 
@@ -127,7 +133,7 @@ class CatViewModel @Inject constructor(
         Timber.i("Getting all favorite images")
         viewModelScope.launch {
             val res = catsRepository.getFavoriteImages(userProfileName.value.toString())
-            Timber.i(res.size.toString())
+            Timber.i("Fetched ${res.size} favorite images")
             _favoriteImages.value = res
         }
     }

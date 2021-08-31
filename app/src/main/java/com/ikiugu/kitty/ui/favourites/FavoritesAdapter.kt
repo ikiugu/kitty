@@ -10,7 +10,7 @@ import com.ikiugu.kitty.databinding.FavouritesItemBinding
 import com.ikiugu.kitty.models.favorites.FavoriteItem
 
 /**
- * Created by Alfred Ikiugu on 31/08/2021
+ * Created by Alfred Ikiugu on 30/08/2021
  */
 
 class FavoritesAdapter :
@@ -23,32 +23,12 @@ class FavoritesAdapter :
     }
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
-        val currentNote = getItem(position)
-        holder.bind(currentNote)
+        val currentFavorite = getItem(position)
+        holder.bind(currentFavorite)
     }
 
     inner class FavoritesViewHolder(private val binding: FavouritesItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            /*binding.apply {
-                root.setOnClickListener {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val note = getItem(position)
-                        listener.onItemClick(note)
-                    }
-                }
-
-                noteCompleteButton.setOnClickListener {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val note = getItem(position)
-                        listener.onButtonClicked(note)
-                    }
-                }
-            }*/
-        }
 
         fun bind(favorite: FavoriteItem) {
             binding.apply {
@@ -60,11 +40,6 @@ class FavoritesAdapter :
                 }
             }
         }
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(note: FavoriteItem)
-        fun onButtonClicked(note: FavoriteItem)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<FavoriteItem>() {
