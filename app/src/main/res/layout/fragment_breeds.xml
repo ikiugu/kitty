@@ -10,7 +10,7 @@
         android:id="@+id/breeds_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/margin_four"
         android:visibility="visible"
         tools:itemCount="30"
         tools:listitem="@layout/breed_listing_item" />

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:padding="4dp">
+    android:layout_height="@dimen/margin_three_fifty"
+    android:padding="@dimen/margin_four">
 
     <ImageView
         android:id="@+id/imageView"

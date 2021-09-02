@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginBottom="4dp"
-    app:cardCornerRadius="2dp"
+    android:layout_height="@dimen/default_size"
+    android:layout_marginStart="@dimen/margin_four"
+    android:layout_marginEnd="@dimen/margin_four"
+    android:layout_marginBottom="@dimen/margin_four"
+    app:cardCornerRadius="@dimen/margin_two"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -17,24 +17,24 @@
 
         <ImageView
             android:id="@+id/breedImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/default_size"
+            android:layout_height="@dimen/default_size"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/margin_ten"
             android:layout_toEndOf="@id/breedImage"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/margin_five">
 
             <TextView
                 android:id="@+id/breedName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/font_twenty"
                 android:textStyle="bold"
                 tools:text="Name" />
 

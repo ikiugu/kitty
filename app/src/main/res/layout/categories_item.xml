@@ -2,11 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginBottom="4dp"
-    app:cardCornerRadius="2dp"
+    android:layout_height="@dimen/margin_sixty"
+    android:layout_marginStart="@dimen/margin_four"
+    android:layout_marginEnd="@dimen/margin_four"
+    android:layout_marginBottom="@dimen/margin_four"
+    app:cardCornerRadius="@dimen/margin_two"
     app:cardUseCompatPadding="true">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="@dimen/margin_five"
         android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textSize="@dimen/font_fifteen" />
 </androidx.cardview.widget.CardView>
