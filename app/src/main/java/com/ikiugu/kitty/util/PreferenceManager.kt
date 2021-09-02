@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.ikiugu.kitty.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -34,7 +35,7 @@ class PreferenceManager @Inject constructor(@ApplicationContext private val cont
     val imageTypeFlow = context.dataStore.data
         .catch { exception ->
             if (exception is IOException) {
-                Timber.e(exception, "Error reading shared preferences")
+                Timber.e(exception, context.getString(R.string.shared_preferences_error))
                 emit(emptyPreferences())
             } else {
                 throw exception
@@ -47,7 +48,7 @@ class PreferenceManager @Inject constructor(@ApplicationContext private val cont
     val usernameFlow = context.dataStore.data
         .catch { exception ->
             if (exception is IOException) {
-                Timber.e(exception, "Error reading shared preferences")
+                Timber.e(exception, context.getString(R.string.shared_preferences_error))
                 emit(emptyPreferences())
             } else {
                 throw exception
@@ -57,9 +58,9 @@ class PreferenceManager @Inject constructor(@ApplicationContext private val cont
             preferences[PreferenceKeys.USER_NAME_SELECTED] ?: "ikiugu"
         }
 
-    suspend fun updateImageTypePreferences(imageTypes: ImageTypes) {
+    suspend fun updateImageTypePreferences(imageType: ImageTypes) {
         context.dataStore.edit { preferences ->
-            preferences[PreferenceKeys.IMAGE_TYPE_SELECTED] = imageTypes.name
+            preferences[PreferenceKeys.IMAGE_TYPE_SELECTED] = imageType.name
         }
     }
 

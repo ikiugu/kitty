@@ -16,8 +16,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(private val preferenceManager: PreferenceManager) :
     ViewModel() {
 
-    fun saveNewListPreference(imageTypes: String) {
-        val type = when (imageTypes) {
+    fun saveNewListPreference(imageType: String) {
+        val type = when (imageType) {
             "PNG" -> ImageTypes.PNG
             "JPG" -> ImageTypes.JPG
             "GIF" -> ImageTypes.GIF
